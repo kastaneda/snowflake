@@ -1,0 +1,7 @@
+#!/bin/sh
+
+apt-get update
+apt-get install php5-fpm nginx
+
+cp /vagrant/share/nginx/default.conf /etc/nginx/sites-available/default
+service nginx reload
