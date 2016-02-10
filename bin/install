@@ -1,7 +1,16 @@
 #!/bin/sh
 
 apt-get update
-apt-get install php5-fpm nginx
+apt-get install -y php5-fpm php5-cli nginx
 
 cp /vagrant/share/nginx/default.conf /etc/nginx/sites-available/default
 service nginx reload
+
+if [ ! -f /usr/local/bin/composer ]
+then
+  curl -sS https://getcomposer.org/installer | \
+    php -- --install-dir=/usr/local/bin --filename=composer
+fi
+
+cd /vagrant
+composer install
