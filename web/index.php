@@ -1,14 +1,12 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
 
+error_reporting(E_ALL);         // FIXME
+ini_set('display_errprs', 1);   // FIXME
+
 $app = new Silex\Application();
+$app['debug'] = true;           // FIXME
 
-$app->get('/', function () use ($app) {
-    return $app->redirect('/hello/world');
-});
-
-$app->get('/hello/{name}', function ($name) use ($app) {
-    return '<h1>Hello, ' . $app->escape(ucfirst($name)) . '!</h1>';
-});
-
+$app->register(new Snowflake\MyServiceProvider());
+$app->mount('/', new Snowflake\MyControllerProvider());
 $app->run();
