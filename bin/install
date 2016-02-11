@@ -1,10 +1,21 @@
 #!/bin/sh
 
 apt-get update
-apt-get install -y php5-fpm php5-cli nginx
+apt-get install -y php5-fpm php5-cli php5-mysql nginx
 
 cp /vagrant/share/nginx/default.conf /etc/nginx/sites-available/default
 service nginx reload
+
+if [ ! -f /root/.my.cnf ]
+then
+  echo "mysql-server-5.5 mysql-server/root_password password root" | debconf-set-selections
+  echo "mysql-server-5.5 mysql-server/root_password_again password root" | debconf-set-selections
+  apt-get -y install mysql-server-5.5
+  cp /vagrant/share/mysql/my.cnf /home/vagrant/.my.cnf
+  cp /vagrant/share/mysql/my.cnf /root/.my.cnf
+  mysqladmin create snowflake
+  mysql snowflake < /vagrant/share/mysql/snowflake.sql
+fi
 
 if [ ! -f /usr/local/bin/composer ]
 then
@@ -13,4 +24,4 @@ then
 fi
 
 cd /vagrant
-composer install
+su -c "composer install" vagrant

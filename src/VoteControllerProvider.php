@@ -11,7 +11,9 @@ class VoteControllerProvider implements ControllerProviderInterface
         $controllers = $app['controllers_factory'];
 
         $controllers->get('/', function (Application $app) {
-            return 'Тут должны быть результаты';
+            $sql = 'SELECT * FROM sf_vote';
+            $post = $app['db']->fetchAssoc($sql);
+            return $app->json($post);
         });
 
         $controllers->put('/{name}', function (Application $app, $name) {
