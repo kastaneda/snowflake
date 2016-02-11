@@ -4,18 +4,18 @@ namespace Snowflake;
 use Silex\Application;
 use Silex\ControllerProviderInterface;
 
-class MyControllerProvider implements ControllerProviderInterface
+class VoteControllerProvider implements ControllerProviderInterface
 {
     public function connect(Application $app)
     {
         $controllers = $app['controllers_factory'];
 
         $controllers->get('/', function (Application $app) {
-            return $app->redirect('/hello/world');
+            return 'Тут должны быть результаты';
         });
 
-        $controllers->get('/hello/{name}', function (Application $app, $name) {
-            return '<h1>Hello, ' . $app->escape(ucfirst($name)) . '!</h1>';
+        $controllers->put('/{name}', function (Application $app, $name) {
+            $app->abort(403);
         });
 
         return $controllers;

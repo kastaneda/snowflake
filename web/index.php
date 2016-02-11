@@ -8,5 +8,6 @@ $app = new Silex\Application();
 $app['debug'] = true;           // FIXME
 
 $app->register(new Snowflake\MyServiceProvider());
-$app->mount('/', new Snowflake\MyControllerProvider());
+$app->mount('/api/v1/user', new Snowflake\UserControllerProvider());
+$app->mount('/api/v1/vote', new Snowflake\VoteControllerProvider());
 $app->run();
