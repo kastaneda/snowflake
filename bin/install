@@ -10,7 +10,7 @@ if [ ! -f /root/.my.cnf ]
 then
   echo "mysql-server-5.5 mysql-server/root_password password root" | debconf-set-selections
   echo "mysql-server-5.5 mysql-server/root_password_again password root" | debconf-set-selections
-  apt-get -y install mysql-server-5.5
+  apt-get -y install mysql-server-5.5 mysql-client-5.5
   cp /vagrant/share/mysql/my.cnf /home/vagrant/.my.cnf
   cp /vagrant/share/mysql/my.cnf /root/.my.cnf
   mysqladmin create snowflake
