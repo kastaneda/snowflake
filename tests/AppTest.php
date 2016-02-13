@@ -9,11 +9,22 @@ class AppTest extends WebTestCase
         return require __DIR__ . '/../src/app.php';
     }
 
-    public function testInitialPage()
+    public function testFrontPageError()
     {
         $client = $this->createClient();
         $crawler = $client->request('GET', '/');
 
         $this->assertFalse($client->getResponse()->isOk());
+
+        $this->assertTrue(
+            $client->getResponse()->headers->contains(
+                'Content-Type',
+                'application/json'
+            )
+        );
+
+        $content = $client->getResponse()->getContent();
+        $json = \json_decode($content, true);
+        $this->assertArrayHasKey('error', $json);
     }
 }
