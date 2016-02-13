@@ -1,6 +1,7 @@
 <?php
 
 use Silex\Application;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 $app = new Application();
@@ -21,17 +22,19 @@ $app->error(function (\Exception $e, $code) {
 });
 
 $app->get('/api/v1/vote', function (Application $app) {
-    // $sql = 'SELECT * FROM sf_vote';
-    // $post = $app['db']->fetchAssoc($sql);
-    return 'foo';
-    return $app->json(['foo' => 'bar']);
+    // FIXME
+    $sql = 'SELECT * FROM sf_vote';
+    $post = $app['db']->fetchAssoc($sql);
+    return $app->json($post);
 });
 
 $app->put('/api/v1/vote/{name}', function (Application $app, $name) {
+    // FIXME
     $app->abort(403);
 });
 
 $app->put('/api/v1/user/{name}', function (Application $app, $name) {
+    // FIXME
     $app->abort(400);
 });
 
