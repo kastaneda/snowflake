@@ -21,12 +21,22 @@ vagrant up
 GET /api/v1/vote
 ```
 
+```
+curl http://127.0.0.1:8080/api/v1/vote
+```
+
  - 200: get current voting statistic
 
 ### User registration
 
 ```
 PUT /api/v1/user/{login}
+```
+
+```
+curl -X PUT -H 'Content-Type: application/json' \
+  -d '{"name":"Dmitry","password":"test01"}' \
+  http://127.0.0.1:8080/api/v1/user/tester
 ```
 
  - 400: login/password/other data validation error
@@ -39,6 +49,12 @@ PUT /api/v1/user/{login}
 
 ```
 PUT /api/v1/vote/{login}
+```
+
+```
+curl -X PUT -H 'Content-Type: application/json' \
+  -d '{"genre":"Electric"}' \
+  http://127.0.0.1:8080/api/v1/vote/tester
 ```
 
  - 403: login in URL != login in HTTP auth
