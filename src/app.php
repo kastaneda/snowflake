@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 $app = new Application();
 $app['debug'] = true;
 
+$app->register(new SilexMemcache\MemcacheExtension());
+
 $app->register(new Silex\Provider\DoctrineServiceProvider(),
     include __DIR__ . '/../share/config.php');
 
